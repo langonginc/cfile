@@ -14,7 +14,7 @@ void dfs (int u, int f)
 {
   dep[u] = dep[f] + 1;
   size[u] = w[u];
-  dp[1] = dep[u] * w[u];
+  dp[1] += dep[u] * w[u];
   for (int i = 0; i < adj[u].size(); i ++)
   {
     if (adj[u][i] != f)
