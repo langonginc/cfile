@@ -36,7 +36,7 @@ inline void rotate (int &p, int d)
 {
   int k = son[p][d ^ 1];
   son[p][d ^ 1] = son[k][d];
-  son[k][d] = d;
+  son[k][d] = p;
   pushUp(p);
   pushUp(k);
   p = k;
