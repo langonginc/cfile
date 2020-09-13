@@ -1,39 +1,44 @@
-#include<iostream>
-#include<cstdio>
+#include <iostream>
+#include <cstdio>
+#include <cstring>
 using namespace std;
 typedef long long ll;
-double in;
-ll n,l[100005],k,ans;
-bool check(ll mid){
-	if(mid==0)return true;
-	ll sum=0;
-	for(int i=0;i<n;i++){
-		sum+=l[i]/mid;
-	}
-	return sum>=k;
+const int inf = 1e9+2;
+int n, k, cleft, cright, ans, mid, len[100005];
+
+inline bool check (int mid)
+{
+    ll sum = 0;
+    for (int i = 1; i <= n; i ++)
+    {
+        sum += len[i] / mid;
+    }
+    return sum >= k;
 }
-int main(){
-	cin>>n>>k;
-	ll mxl=0;
-	for(ll i=0;i<n;i++){
-		cin>>in;
-		l[i]=in*100;
-		mxl=max(mxl,l[i]);
-	}
-	ll left=0,right=mxl;
-	while(left<=right){
-		ll mid=(left+right)/2;
-		if(check(mid)){
-			left=mid+1;
-			ans=mid;
-		}
-		else{
-			right=mid-1;
-		}
-	}
-	double a=ans;
-	double re=a/100;
-//	cout<<re<<endl;
-	printf("%.2f",re);
-	return 0;
+
+int main ()
+{
+    cin >> n >> k;
+    for (int i = 1; i <= n; i ++)
+    {
+        double input;
+        cin >> input;
+        len[i] = (int)(input * 100);
+    }
+    cleft = 1, cright = inf;
+    while (cleft <= cright)
+    {
+        mid = (cleft + cright) / 2;
+        if (check (mid))
+        {
+            ans = mid;
+            cleft = mid + 1;
+        }
+        else
+        {
+            cright = mid - 1;
+        }
+    }
+    printf ("%.2lf\n", (double)(ans/100.0));
+    return 0;
 }
