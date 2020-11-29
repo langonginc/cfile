@@ -12,13 +12,15 @@ bool match1(char *x, char *y)
         if (x[px] == y[py])
         {
             py ++;
+            // cout << 'y';
         }
         else
         {
             px ++;
+            // cout << 'x';
         }
     }
-    return px == py;
+    return py == ly;
 }
 
 bool match2(char *x, char *y)
@@ -35,7 +37,11 @@ bool match2(char *x, char *y)
             py ++;
         }
     }
-    return px == py;
+    if (px < lx)
+    {
+        return true;
+    }
+    return false;
 }
 
 int main ()
