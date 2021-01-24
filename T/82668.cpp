@@ -13,11 +13,11 @@ int a[inf], b[inf];
 int main ()
 {
     memset (dp, ~0x3f, sizeof(dp));
+    cin >> n >> m;
     for (int i = 0; i <= n; i ++)
     {
         dp[i][0][400] = 0;
     }
-    cin >> n >> m;
     for (int i = 1; i <= n; i ++)
     {
         cin >> a[i] >> b[i];
