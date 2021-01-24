@@ -28,7 +28,7 @@ int main ()
         {
             for (int k = 0; k <= 800; k ++)
             {
-                if (k + b[i] - a[i] < 0 || dp[i - 1][j - 1][k + b[i] - a[i]] < 0)
+                if (k + b[i] - a[i] < 0)
                 {
                     dp[i][j][k] = dp[i - 1][j][k];
                 }
