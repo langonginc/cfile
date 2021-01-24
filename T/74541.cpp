@@ -6,7 +6,7 @@ using namespace std;
 typedef long long ll;
 const int inf = 1005;
 
-#define debug
+// #define debug
 
 ll n, r, s;
 ll mor[inf], aft[inf], all[inf];
