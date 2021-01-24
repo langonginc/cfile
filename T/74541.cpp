@@ -63,7 +63,8 @@ int main ()
         int pos = 1;
         for (int i = 1; i <= n; i ++)
         {
-            while (pos <= n && mor[i] + aft[pos] > r)
+            pos = 1;
+            while (pos <= n && (mor[i] + aft[pos] > r || but[pos]))
             {
                 pos ++;
             }
@@ -71,10 +72,9 @@ int main ()
             {
                 if (i < n)
                 {
-                    pos = 1;
+                    // pos = 1;
                     continue;
                 }
-//                finish();
                 break;
             }
             but[pos] = true;
@@ -82,7 +82,7 @@ int main ()
 #ifdef debug
             printf ("\n[D] Morning: %lld Afternoon: %lld Free: %d\n", mor[i], aft[pos], (mor[i] + aft[pos])>r?1:0);
 #endif
-            pos ++;
+            // pos ++;
         }
         finish();
         printf ("%lld\n", ans);
