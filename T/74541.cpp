@@ -8,6 +8,7 @@ const int inf = 1005;
 
 // #define debug
 
+/*
 ll n, r, s;
 ll mor[inf], aft[inf], all[inf];
 ll ans = 0;
@@ -86,6 +87,43 @@ int main ()
         }
         finish();
         printf ("%lld\n", ans);
+    }
+    return 0;
+}
+*/
+
+ll n, r, s;
+ll mor[inf], aft[inf], all[inf];
+
+int main ()
+{
+    while (true)
+    {
+        ll ans = 0;
+        cin >> n >> r >> s;
+        if (n == 0 && r == 0 && s == 0)
+        {
+            break;
+        }
+        for (int i = 0; i < n; i ++)
+        {
+            cin >> mor[i];
+        }
+        for (int i = 0; i < n; i ++)
+        {
+            cin >> aft[i];
+        }
+        sort (mor, mor + n);
+        sort (aft, aft + n);
+        for (int i = 0; i < n; i ++)
+        {
+            all[i] = mor[i] + aft[n - i - 1];
+            if (all[i] - r > 0)
+            {
+                ans += (all[i] - r) * s;
+            }
+        }
+        cout << ans << endl;
     }
     return 0;
 }
