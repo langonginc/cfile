@@ -5,17 +5,31 @@
 using namespace std;
 typedef long long ll;
 
+inline ll popcount (ll x)
+{
+    ll ans = 0;
+    while (x > 0)
+    {
+        ans += x % 2;
+        x >>= 1;
+    }
+    return ans;
+}
+
+inline ll lowbit (ll x)
+{
+    return x & -x;
+}
+
 int main ()
 {
-    ll n, k;
+    ll n, k, ans = 0;
     cin >> n >> k;
-    ll ans = 0;
-    while (n > k)
+    while (popcount(n) > k)
     {
-        ans += (n % 2);
-        n >>= 1;
+        ans += lowbit (n);
+        n += lowbit (n);
     }
-    ans += k - n;
-    cout << ans;
+    cout << ans << endl;
     return 0;
 }
