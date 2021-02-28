@@ -53,13 +53,16 @@ int main ()
     {
         cin >> a[i].x >> a[i].y;
     }
-    char str[inf];
+    // char str[inf];
     for (int i = 1; i <= n; i ++)
     {
-        cin >> str;
+        // cin >> str;
         for (int j = 1; j <= n; j ++)
         {
-            if (str[j] == '1' || i == j)
+            char ch;
+            cin >> ch;
+            // if (str[j] == '1' || i == j)
+            if (ch == '1' || i == j)
             {
                 dis[i][j] = a[i].dis(a[j]);
             }
