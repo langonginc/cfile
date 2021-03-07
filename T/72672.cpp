@@ -28,25 +28,40 @@ int dfs (int x)
 
 int main ()
 {
-    scanf ("%d", &n);
-    for (int i = 1; i <= n; i ++)
-    {
-        int x, y;
-        scanf ("%d%d", &x, &y);
-        adj[x][y] = 1;
-    }
-    for (int i = 1; i <= n; i ++)
-    {
-        if (dp[i] == 0)
+    int t;
+    scanf ("%d", &t);
+    while (t --){
+        memset (dp, 0, sizeof (dp));
+        memset (adj, 0, sizeof (adj));
+        int a[inf], b[inf];
+        scanf ("%d", &n);
+        for (int i = 1; i <= n; i ++)
         {
-            dfs (i);
+            scanf ("%d%d", &a[i], &b[i]);
         }
+        for (int i = 1; i <= n; i ++)
+        {
+            for (int j = 1; j <= n; j ++)
+            {
+                if ((a[i] < a[j] && b[i] < b[j]) || (a[i] < b[j] && b[i] < a[j]))
+                {
+                    adj[i][j] = 1;
+                }
+            }
+        }
+        for (int i = 1; i <= n; i ++)
+        {
+            if (dp[i] == 0)
+            {
+                dfs (i);
+            }
+        }
+        int mx = 0;
+        for (int i = 1; i <= n; i ++)
+        {
+            mx = max (mx, dp[i]);
+        }
+        printf ("%d\n", mx);
     }
-    int mx = 0;
-    for (int i = 1; i <= n; i ++)
-    {
-        mx = max (mx, dp[i]);
-    }
-    printf ("%d\n", mx);
     return 0;
 }
