@@ -5,7 +5,8 @@
 using namespace std;
 typedef long long ll;
 const int inf = 100005;
-ll n, m, a[inf], sum[inf * 4], tag[inf * 4], x, y;
+const int INF = 1000005;
+ll n, m, a[inf], sum[inf * 4], tag[inf * 4], x, y, pre[inf];
 inline ll lc (ll p){
 	return p << 1;
 }
@@ -43,7 +44,8 @@ void update (ll p, ll l, ll r, ll ql, ll qr, ll d){
 }
 void build (ll p, ll l, ll r){
 	if (l == r){
-		sum[p] = a[l];
+		// sum[p] = a[l];
+        sum[p] = 0;
 		return;
 	}
 	ll mid = (l + r) >> 1;
@@ -68,22 +70,15 @@ int main (){
 	scanf ("%lld%lld%lld", &n, &x, &y);
 	for (ll i = 1; i <= n; i ++){
 		scanf ("%lld", &a[i]);
+        pre[i] = pre[i - 1] + a[i];
 	}
-	build (1, 1, n);
-    int ans = 0;
+    ll ans = 0;
 	for (int i = 1; i <= n; i ++)
     {
-        for (int j = i; j <= n; j ++)
-        {
-            int t = check (1, 1, n, i, j);
-            // printf ("[INFO] %d -> %d : %d\n", i, j, t);
-            if (t >= x && t <= y)
-            {
-                ans ++;
-                // printf ("[INFO] ANS\n");
-            }
-        }
+        // pre[i]-x  <  pre[r]  <  pre[i]-y
+        ans += check(1, -INF, INF, pre[i] - x, pre[i] - y);
+        update (1, -INF, INF, pre[i], pre[i], 1);
     }
-    printf ("%d\n", ans);
+    printf ("%lld\n", ans);
 	return 0;
 }
