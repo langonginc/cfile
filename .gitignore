@@ -1,3 +1,5 @@
 # Ignore exe file
 *.exe
 *.out
+
+.vscode
