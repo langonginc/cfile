@@ -28,7 +28,7 @@ int main ()
     //     }
     // } 
     dp[0] = 0;
-    dp[1] = 0;
+    // dp[1] = 0;
     for (int i = 1; i <= n; i ++)
     {
         for (int j = h; j >= 0; j --)
