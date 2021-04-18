@@ -112,7 +112,7 @@ dp[1][*] = max{dp[2][*] + abs(* - s[i]) + abs(t[i] - s[i])}
 
 */
 
-    for (int i = 1; i <= h; i ++)
+    for (int i = 1; i <= mh; i ++)
     {
         dp[1][0][i] = 0;
     }
