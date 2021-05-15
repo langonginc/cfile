@@ -11,7 +11,9 @@ int main ()
     for (int i = 1; i <= n; i ++)
     {
         scanf ("%d", &a[i]);
+        dp[i][0] = 1;
     }
+    dp[0][0] = 1;
     for (int i = 1; i <= n; i ++)
     {
         for (int j = 0; j <= a[i]; j ++)
@@ -29,6 +31,6 @@ int main ()
             }
         }
     }
-    printf ("%d", dp[n][m] % 1000007);
+    printf ("%d\n", dp[n][m] % 1000007);
     return 0;
 }
