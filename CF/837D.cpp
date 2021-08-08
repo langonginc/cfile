@@ -6,7 +6,7 @@ using namespace std;
 typedef long long ll;
 const int inf = 205;
 const int binf = 6005;
-int dp[5][inf][binf], n2[inf], n5[inf];
+int dp[5][inf][binf], n2[inf], n5[inf]; //设f[i][j][k]为在前i个数里选择j个，其中包含k个质因数5时，最多的质因数2的个数。
 int main ()
 {
     int n, m;
