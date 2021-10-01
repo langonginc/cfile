@@ -30,7 +30,7 @@ void movetag (int p, int l, int r, int tag)
   }
   else
   {
-    tree [p].num = tree [p].l = tree [p].r = r - l + 1;
+    tree [p].num = tree [p].l = tree [p].r = tree[p].len;
     tree [p].tag = 2;
   }
 }
@@ -103,7 +103,7 @@ void checkin (int p, int l, int r, int ql, int qr)
   if (ql <= mid)
     checkin (lc (p), l, mid, ql, qr);
   if (mid < qr)
-    checkin (lc (p), mid + 1, r, ql, qr);
+    checkin (rc (p), mid + 1, r, ql, qr);
   pushup (p);
 }
 
@@ -120,7 +120,7 @@ void checkout (int p, int l, int r, int ql, int qr)
   if (ql <= mid)
     checkout (lc (p), l, mid, ql, qr);
   if (mid < qr)
-    checkout (lc (p), mid + 1, r, ql, qr);
+    checkout (rc (p), mid + 1, r, ql, qr);
   pushup (p);
 }
 
@@ -135,10 +135,13 @@ int main ()
     if (op == 1)
     {
       scanf ("%d", &x);
-      int pos = query (1, 1, n, x);
-      printf ("%d\n", pos);
-      if (pos != 0)
+      if (tree[1].num >= x)
+      {
+        int pos = query (1, 1, n, x);
+        printf ("%d\n", pos);
         checkin (1, 1, n, pos, pos + x - 1);
+      }
+      else printf ("0\n");
     }
     else{
       scanf ("%d%d", &x, &y);
