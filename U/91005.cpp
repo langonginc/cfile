@@ -12,7 +12,7 @@ class Number
         {
             if (start < t.start) return true;
             else if (start > t.start) return false;
-            else if (end < t.end) return true;
+            else if (end > t.end) return true;
             else return false;
         }
 }a[inf];

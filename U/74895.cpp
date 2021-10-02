@@ -4,18 +4,20 @@ using namespace std;
 #include <cmath>
 typedef long long ll;
 const int inf = 1000005;
-ll n, m, a[inf], sum[inf * 4], ssum[inf * 4], tag[inf * 4], stag[inf * 4];
+ll n, m, a[inf], sum[inf * 4], ssum[inf * 4], tag[inf * 4];
 inline ll lc (ll p){
 	return p << 1;
 }
 inline ll rc (ll p){
 	return p << 1 | 1;
 }
-void movetag (ll p, ll l, ll r, ll a, ll m){
+void movetag (ll p, ll l, ll r, ll a){
     sum[p] += a * (l + r) * (r - l + 1) / 2;
+    ssum[p] += a * (
+		r * (r + 1) * (2 * r + 1) - 
+		(l - 1) * l * (2 * (l - 1) + 1)
+	) / 6;
     tag[p] += a;
-    stag[p] += m;
-    ssum[p] += m * (r * (r + 1) * (2 * r + 1) - l * (l + 1) * (2 * l + 1)) / 6;
 }
 void pushup (ll p){
 	sum[p] = sum[lc (p)] + sum[rc (p)];
@@ -23,17 +25,15 @@ void pushup (ll p){
 }
 void pushdown (ll p, ll l, ll r){
 	ll mid = (l + r) >> 1;
-	movetag (lc (p), l, mid, tag[p], stag[p]);
-	movetag (rc (p), mid + 1, r, tag[p], stag[p]);
+	movetag (lc (p), l, mid, tag[p]);
+	movetag (rc (p), mid + 1, r, tag[p]);
 	tag[p] = 0;
-    stag[p] = 0;
 }
 void update (ll p, ll l, ll r, ll ql, ll qr){
 	if (ql <= l && r <= qr){
 		sum[p] += (l + r) * (r - l + 1) / 2;
-        ssum[p] += (r * (r + 1) * (2 * r + 1) - l * (l + 1) * (2 * l + 1)) / 6;
+        ssum[p] += (r * (r + 1) * (2 * r + 1) - (l - 1) * l * (2 * (l - 1) + 1)) / 6;
 		tag[p] += 1;
-        stag[p] += 1;
 		return;
 	}
 	pushdown (p, l, r);
@@ -46,19 +46,7 @@ void update (ll p, ll l, ll r, ll ql, ll qr){
 	}
 	pushup (p);
 }
-void build (ll p, ll l, ll r){
-	if (l == r){
-		sum[p] = a[l];
-        ssum[p] = a[l];
-		return;
-	}
-	ll mid = (l + r) >> 1;
-	build (lc (p), l, mid);
-	build (rc (p), mid + 1, r);
-	pushup (p);
-}
 ll querySum (ll p, ll l, ll r, ll ql, ll qr){
-    printf ("QuerySum: p %lld, l %lld, r %lld, ql %lld, qr %lld\n", p, l, r, ql, qr);
 	if (ql <= l && r <= qr)
         return sum[p];
 	pushdown (p, l, r);
@@ -69,7 +57,6 @@ ll querySum (ll p, ll l, ll r, ll ql, ll qr){
 	if (mid < qr){
 		result += querySum (rc (p), mid + 1, r, ql, qr);
 	}
-    printf (">> Sum p %lld, l %lld, r %lld: Ans %lld\n", p, l, r, result);
 	return result;
 }
 ll querySsum (ll p, ll l, ll r, ll ql, ll qr){
@@ -87,10 +74,10 @@ ll querySsum (ll p, ll l, ll r, ll ql, ll qr){
 }
 int main (){
     ll n = 1000001;
-	scanf ("%lld%lld", &m);
+	scanf ("%lld", &m);
 	for (ll i = 1; i <= m; i ++){
-		int type;
-		scanf ("%d", &type);
+		ll type;
+		scanf ("%lld", &type);
 		if (type == 1){
 			ll x;
 			scanf ("%lld", &x);

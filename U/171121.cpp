@@ -3,64 +3,39 @@
 #include <cstring>
 using namespace std;
 const int inf = 15;
-class Group
-{
-    public:
-        int t, len, a[13];
-} group[1005];
-int n, m, a[inf], grc;
+int n, m, dp[2 << inf];
 
 int main ()
 {
-    // memset (a, 0x3f, sizeof (a));
-
+    memset (dp, 0x3f, sizeof (dp));
+    for (int i = 0; i < (2 << inf); i ++) dp[i] = 214748364;
     scanf ("%d%d", &n, &m);
-    for (int i = 1; i <= n; i ++)
+    dp[0] = 0;
+    while (m --)
     {
-        a[i] = 2147483647;
-    }
-    for (int i = 1; i <= n; i ++)
-    {
-        int t, b;
-        scanf ("%d%d", &t, &b);
-        if (b == 1)
+        // for (int i = 1; i <= n; i ++)
         {
-            int c;
-            scanf ("%d", &c);
-            a[c] = min (a[c], t);
-        }
-        else
-        {
-            grc ++;
-            group[grc].len = b, group[grc].t = t;
+            int a, b, y;
+            scanf ("%d%d", &a, &b);
             for (int j = 1; j <= b; j ++)
             {
-                scanf ("%d", &group[grc].a[j]);
+                int t;
+                scanf ("%d", &t);
+                y |= (1 << (t - 1));
+            }
+            for (int j = 1 << n; j >= 0; j --)
+            {
+                dp[j | y] = dp[j] + a;
             }
         }
     }
-    // for (int i = 1; i <= grc; i ++)
-    // {
-    //     int sum = 0;
-    //     for (int j = 1; j <= group[i].len; j ++)
-    //     {
-    //         sum += a[group[i].a[j]];
-    //     }
-    //     if (group[i].t < sum)
-    //     {
-
-    //     }
-    // }
-    int sum = 0;
-    for (int i = 1; i <= n; i ++)
+    if (dp[(1<<n)-1] >= 214748364)
     {
-        if (a[i] == 2147483647)
-        {
-            printf ("-1");
-            return 0;
-        }
-        sum += a[i];
+        printf ("-1");
     }
-    printf ("%d", sum);
+    else
+    {
+        printf ("%d", dp[(1 << n) - 1]);
+    }
     return 0;
 }
