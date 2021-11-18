@@ -1,6 +1,9 @@
 # Ignore exe file
 *.exe
 *.out
+CMake*.txt
 
 .vscode
+build
+
 tempCodeRunnerFile.cpp
