@@ -5,5 +5,8 @@ CMake*.txt
 
 .vscode
 build
+.DS_Store
+*.dSYM
+
 
 tempCodeRunnerFile.cpp
