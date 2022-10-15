@@ -7,6 +7,8 @@ CMake*.txt
 build
 .DS_Store
 *.dSYM
+cmake-build-debug/*
+.idea/*
 
 
 tempCodeRunnerFile.cpp
