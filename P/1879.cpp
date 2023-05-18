@@ -1,3 +1,4 @@
+/*
 #include<iostream>
 #include<cstdio>
 #include<cstring>
@@ -47,5 +48,71 @@ int main(){
 		ans=(ans+dp[m][i])%100000000;
 	}
 	printf("%lld\n",ans);
+	return 0;
+}
+*/
+
+#include <iostream>
+#include <cstdio>
+using namespace std;
+const int maxP = 13;
+const int moder = 1e8;
+
+int n, m, a[maxP], validState[1 << maxP], validCount, dp[maxP][1 << maxP];
+
+int main()
+{
+	scanf ("%d%d", &n, &m);
+	for (int i = 1; i <= n; i ++)
+	{
+		for (int j = 0; j < m; j ++)
+		{
+			int x;
+			scanf ("%d", &x);
+			if (x)
+			{
+				a[i] |= (1 << j);
+			}
+		}
+	}
+	for (int s = 0; s < (1 << maxP); s ++)
+	{
+		if (s & (s >> 1)) continue;
+		validState[++ validCount] = s;
+	}
+
+	// process line 1
+	for (int i = 1; i <= validCount; i ++)
+	{
+		int s = validState[i];
+		if ((s & a[1]) == s)
+		{
+			dp[1][s] = 1;
+		}
+	}
+	// process other
+	for (int i = 2; i <= n; i ++)
+	{
+		for (int j = 1; j <= validCount; j ++)
+		{
+			int s = validState[j];
+			if ((s & a[i]) != s) continue;
+			for (int k = 1; k <= validCount; k ++)
+			{
+				int pre = validState[k];
+				if (dp[i - 1][pre] && (s & pre) == 0)
+				{
+					dp[i][s] = (dp[i][s] + dp[i - 1][pre]) % moder;
+				}
+			}
+		}
+	}
+	// calc ans
+	int ans = 0;
+	for (int i = 1; i <= validCount; i ++)
+	{
+		ans = (ans + dp[n][validState[i]]) % moder;
+	}
+	printf ("%d\n", ans);
 	return 0;
 }
