@@ -71,9 +71,9 @@ int main () {
                     endNum = strlen (end) == 1 ? end[0] - '0' : (end[0] - '0') * 10 + (end[1] - '0');
                 }
                 bool run;
-                if (endNum - startNum > 0 && s.empty()) {
+                if (endNum - startNum >= 0 && s.empty()) {
                     run = true;
-                } else if (endNum - startNum > 0 && !s.empty() && s.top().run) {
+                } else if (endNum - startNum >= 0 && !s.empty() && s.top().run) {
                     run = true;
                 } else {
                     run = false;
