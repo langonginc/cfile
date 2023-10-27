@@ -5,6 +5,8 @@
 #ifndef CFILE_FASTPOW_H
 #define CFILE_FASTPOW_H
 
+typedef long long ll;
+
 ll fastPow (ll x, ll y)
 {
     ll r = 1, base = x;
