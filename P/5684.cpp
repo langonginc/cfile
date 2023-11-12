@@ -9,7 +9,7 @@ const ll MOD = 1e9 + 7;
 ll fact(ll x)
 {
     ll ans = 1;
-    for (ll i = 1; i <= x; i ++)
+    for (ll i = 2; i <= x; i ++)
     {
         ans = (ans * i) % MOD;
     }
@@ -32,7 +32,7 @@ int main ()
 {
     string str;
     cin >> n >> str;
-    ll sum = fact(n);
+    ll sum = fact(n) % MOD;
     for (int i = 0; i < n; i ++)
     {
         a[str[i] - 'a'] ++;
@@ -57,6 +57,6 @@ int main ()
         ans = (ans * A(a[i], (a[i] >> 1))) % MOD;
     }
     ans = (ans * fact(n >> 1)) % MOD;
-    printf ("%lld\n", sum - ans);
+    printf ("%lld\n", 1ll * (sum - ans + MOD) % MOD);
     return 0;
 }
